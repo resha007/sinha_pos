@@ -1,0 +1,101 @@
+#receipt_wrapper
+{
+	width: 100%; margin: 0 auto; max-width: 800px;
+}
+
+#receipt_header
+{
+	text-align:left;
+}
+
+#company_name
+{
+	font-size:150%;
+	font-weight:bold;
+}
+
+#company_name img
+{
+	max-width: 150px;
+	max-height: 150px;
+}
+
+#company_phone
+{
+	margin-bottom:15px;
+
+}
+
+#sale_time
+{
+	margin-bottom:5px;
+}
+
+#receipt_items
+{
+	position:relative;
+	border-collapse:collapse;
+	margin-top:15px;
+	margin-bottom:15px;
+	width:100%;
+}
+
+#receipt_items td
+{
+	position:relative;
+	padding:3px; margin-bottom:5px;
+	
+}
+
+#receipt_items tr
+{
+	margin-bottom:5px;	
+}
+
+#sale_return_policy
+{
+	width:80%;
+	margin:0 auto;
+	text-align:center;
+}
+
+#receipt_wrapper #barcode
+{
+	margin-top:10px;
+	text-align:center;
+}
+
+.total-value 
+{
+	text-align: right;		
+}
+
+.discount
+{
+	font-weight: bold;
+}
+
+#receipt_wrapper textarea { border: 0; font-size: 14px; overflow: hidden; resize: none; }
+#receipt_wrapper table { border-collapse: collapse; }
+#receipt_wrapper table td{ border: 1px solid black; padding: -10px; }
+#receipt_wrapper table th{ border: 1px solid black; padding: 5px; }
+#receipt_wrapper table td { padding: 2px; }
+
+
+#receipt_items { clear: both; width: 100%; border: 1px solid black; font-size: 12px}
+#receipt_items th { background: #eee; text-align: center; }
+#receipt_items textarea { width: 80px; height: 20px; }
+#receipt_items tr.item-row td { border: 0; vertical-align: top; }
+#receipt_items td.description { width: 300px; }
+#receipt_items td.item-name { width: 350px; }
+#receipt_items td.warrenty { width: 50px; }
+#receipt_items td.item-description textarea { height: auto; width: 100%; }
+#receipt_items td.description textarea, #items td.item-name textarea { width: 100%; }
+#receipt_items td.total-line { border-right: 0; text-align: right; }
+#receipt_items td.total-value { width: 100px; border-left: 0;  }
+#receipt_items td.total-value textarea { height: 20px; background: none; }
+#receipt_items td.total-line textarea { height: 20px; width:150px; background: none; }
+#receipt_items td.balance { background: #eee; }
+#receipt_items td.blank { border: 0; }
+#receipt_items td.blank-bottom { border: 1px; }
+
