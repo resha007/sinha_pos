@@ -69,7 +69,7 @@
                   <?php echo form_close(); ?>
                   
                   <div class="text-center"><br>
-                  <h6>Infinizee POS <?php echo $this->config->item('application_version'); ?></h6>
+                  <h6>777 POS <?php echo $this->config->item('application_version'); ?></h6>
                   </div>
                 </div>
               </div>
