@@ -207,6 +207,11 @@ class Sales extends Secure_Controller
 		$this->sale_lib->set_comment($this->input->post('comment'));
 	}
 
+	public function set_po_no()
+	{
+		$this->sale_lib->set_po_no($this->input->post('po_no'));
+	}
+
 	public function set_invoice_number()
 	{
 		$this->sale_lib->set_invoice_number($this->input->post('sales_invoice_number'));
@@ -479,9 +484,15 @@ class Sales extends Secure_Controller
 		$data['transaction_date'] = to_date($__time);
 		$data['show_stock_locations'] = $this->Stock_location->show_locations('sales');
 		$data['comments'] = $this->sale_lib->get_comment();
+		$data['po_no'] = $this->sale_lib->get_po_no();
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$employee_info = $this->Employee->get_info($employee_id);
 		$data['employee'] = $employee_info->first_name . ' ' . mb_substr($employee_info->last_name, 0, 1);
+
+		$data['company_tel'] = $this->config->item('phone');
+		$data['company_web'] = $this->config->item('website');
+		$data['company_email'] = $this->config->item('email');
+		$data['company_add'] = $this->config->item('address');
 
 		$data['company_info'] = implode("\n", array(
 			$this->config->item('address'),
@@ -583,7 +594,7 @@ class Sales extends Secure_Controller
 				$invoice_view = $this->config->item('invoice_type');
 
 				// Save the data to the sales table
-				$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
+				$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $data['po_no'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
 				$data['sale_id'] = 'POS ' . $data['sale_id_num'];
 
 				// Resort and filter cart lines for printing
@@ -622,7 +633,7 @@ class Sales extends Secure_Controller
 				$data['sale_status'] = SUSPENDED;
 				$sale_type = SALE_TYPE_WORK_ORDER;
 
-				$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
+				$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $data['po_no'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
 				$this->sale_lib->set_suspended_id($data['sale_id_num']);
 
 				$data['cart'] = $this->sale_lib->sort_and_filter_cart($data['cart']);
@@ -675,7 +686,7 @@ class Sales extends Secure_Controller
 				$sale_type = SALE_TYPE_POS;
 			}
 
-			$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
+			$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $data['po_no'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
 
 			$data['sale_id'] = 'POS ' . $data['sale_id_num'];
 
@@ -778,7 +789,7 @@ class Sales extends Secure_Controller
 			$data['customer_address'] = $customer_info->address_1;
 			$data['phone_number'] = $customer_info->phone_number;
 			if (!empty($customer_info->zip) || !empty($customer_info->city)) {
-				$data['customer_location'] = $customer_info->zip . ' ' . $customer_info->city . "" . $customer_info->state;
+				$data['customer_location'] = $customer_info->zip . ' ' . $customer_info->city . ", " . $customer_info->state;
 			} else {
 				$data['customer_location'] = '';
 			}
@@ -870,9 +881,15 @@ class Sales extends Secure_Controller
 		$data['sale_id_num'] = $sale_id;
 		$data['sale_id'] = 'POS ' . $sale_id;
 		$data['comments'] = $sale_info['comment'];
+		$data['po_no'] = $sale_info['po_no'];
 		$data['invoice_number'] = $sale_info['invoice_number'];
 		$data['quote_number'] = $sale_info['quote_number'];
 		$data['sale_status'] = $sale_info['sale_status'];
+
+		$data['company_tel'] = $this->config->item('phone');
+		$data['company_web'] = $this->config->item('website');
+		$data['company_email'] = $this->config->item('email');
+		$data['company_add'] = $this->config->item('address');
 
 		$data['company_info'] = implode("\n", array(
 			$this->config->item('address'),
@@ -982,6 +999,7 @@ class Sales extends Secure_Controller
 		$data['amount_change'] = $data['amount_due'] * -1;
 
 		$data['comment'] = $this->sale_lib->get_comment();
+		$data['po_no'] = $this->sale_lib->get_po_no();
 		$data['email_receipt'] = $this->sale_lib->is_email_receipt();
 
 		if ($customer_info && $this->config->item('customer_reward_enable') == TRUE) {

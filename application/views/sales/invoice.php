@@ -6,6 +6,8 @@ if(isset($error_message))
 	echo "<div class='alert alert-dismissible alert-danger'>".$error_message."</div>";
 	exit;
 }
+
+$payment_method = "";
 ?>
 
 <?php if(!empty($customer_email)): ?>
@@ -44,19 +46,20 @@ $(document).ready(function()
 </div>
 
 <div id="page-wrap">
-	<div id="newheader"><?php echo $this->lang->line('sales_invoice'); ?></div>
+	
 	<div id='barcode' style='float:right; text-align: center; font-size: 10px'>
+		<div id="newheader"><?php echo $this->lang->line('sales_invoice'); ?></div>
 			<img style='padding-top:4%; width:150px' src='data:image/png;base64,<?php echo $barcode; ?>' /><br>
 			<?php echo $sale_id; ?>
 	</div>
-	<div id="block1">
+	<div id="block">
 		<div id="logo">
 			<?php
 			if($this->Appconfig->get('company_logo') != '')
 			// if(true)
 			{
 			?>
-				<img id="image" src="<?php echo base_url('uploads/' . $this->Appconfig->get('company_logo')); ?>" alt="company_logo" />
+				<img id="image" style='width:500px' src="<?php echo base_url('uploads/' . $this->Appconfig->get('company_logo')); ?>" alt="company_logo" />
 				<!-- <img id="image" src="<?php echo base_url('images/flatlogo.png'); ?>" alt="company_logo" /> -->
 			<?php
 			}
@@ -73,26 +76,28 @@ $(document).ready(function()
 		</div>
 	</div>
 
+	<br>
 	<div id="block2">
-		<div id="company-title"><?php echo nl2br($company_info) ?></div>
-		<!-- <div style="float: right">
-			<?php echo $this->lang->line('sales_invoice_number');?> : <?php echo $invoice_number; ?>
-			<?php echo $this->lang->line('common_date'); ?> : <?php echo $transaction_date; ?>
-		</div> -->
-	</div><br>
-	<div id="block2">
-	<table id="meta" style="border: -1; float: right">
+		<table id="meta" style="float: right">
 			<tr>
-				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_number');?> </td>
-				<td><?php echo $invoice_number; ?></td>
+				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_number');?> : </td>
+				<td class="meta-body"><?php echo $invoice_number; ?></td>
 			</tr>
 			<tr>
-				<td class="meta-head"><?php echo $this->lang->line('common_date'); ?></td>
-				<td><?php echo $transaction_date; ?></td>
+				<td class="meta-head"><?php echo $this->lang->line('common_date'); ?> : </td>
+				<td class="meta-body"><?php echo $transaction_date; ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head">PO Number : </td>
+				<td class="meta-body"><?php echo $po_no; ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head">Credit Period : </td>
+				<td class="meta-body">30 Days</td>
 			</tr>
 			<!-- <tr>
-				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_total'); ?></td>
-				<td><?php echo to_currency($total); ?></td>
+				<td class="meta-head">Payment Method : </td>
+				<td class="meta-body"><?php echo $payment_method ?></td>
 			</tr> -->
 		</table>
 		<div id="customer-title">
@@ -100,7 +105,7 @@ $(document).ready(function()
 			if(isset($customer))
 			{
 			?>
-				<div id="customer"><b>Bill to : </b><br><?php echo nl2br($customer_info) ?></div>
+				<div id="customer"><b><font face="calibri" size="4">Invoice to : </font><br><font face="calibri" size="3"><?php echo nl2br($customer_info) ?></font></b></div>
 			<?php
 			}
 			?>
@@ -111,7 +116,7 @@ $(document).ready(function()
 		<tr>
 			<th><?php echo $this->lang->line('sales_item_number'); ?></th>
 			<?php
-				$invoice_columns = 6;
+				$invoice_columns = 5;
 				if($include_hsn)
 				{
 					$invoice_columns += 1;
@@ -121,7 +126,7 @@ $(document).ready(function()
 				}
 			?>
 			<th><?php echo $this->lang->line('sales_item_name'); ?></th>
-			<th><?php echo $this->lang->line('warrenty'); ?></th>
+			
 			<th><?php echo $this->lang->line('sales_quantity'); ?></th>
 			<th><?php echo $this->lang->line('sales_price'); ?></th>
 			<th><?php echo $this->lang->line('sales_discount'); ?></th>
@@ -149,7 +154,7 @@ $(document).ready(function()
 						<td style='text-align:center;'><?php echo $item['hsn_code']; ?></td>
 					<?php endif; ?>
 					<td style='text-align:left;' class="item-name"><?php echo ($item['is_serialized'] || $item['allow_alt_description']) && !empty($item['description']) ? $item['description'] : $item['name'] . ' ' . $item['attribute_values']; if($item['is_serialized']){ echo '<br> (S/N. ' . $item['serialnumber'].')';} ?></td>
-					<td style='text-align:center;' class="warrenty"><?php echo ($item['warranty']); ?></td>
+					<!-- <td style='text-align:center;' class="warrenty"><?php echo ($item['warranty']); ?></td> -->
 					<td style='text-align:center;' class="warrenty"><?php echo to_quantity_decimals($item['quantity']); ?></td>
 					<td style='text-align:center;' class="total-value"><?php echo to_currency($item['price']); ?></td>
 					<td style='text-align:center;'><?php echo ($item['discount_type']==FIXED)?to_currency($item['discount']):to_decimals($item['discount']) . '%';?></td>
@@ -166,7 +171,7 @@ $(document).ready(function()
 						<td class="item-description" colspan="<?php echo $invoice_columns-1; ?>"></td>
 						<td style='text-align:center;'><?php echo $item['serialnumber']; ?></td>
 					</tr> -->
-				<?php
+				<?php 
 				}
 			}
 		}
@@ -194,11 +199,10 @@ $(document).ready(function()
 		<?php
 		}
 		?>
-
-		<tr>
+		<tr class="item-row-total" >
 			<td colspan="<?php echo $invoice_columns-2; ?>" class="blank"> </td>
-			<td colspan="2" class="total-line"><?php echo $this->lang->line('sales_total'); ?></td>
-			<td class="total-value" id="total"><?php echo to_currency($total); ?></td>
+			<td colspan="2" class="total-line" style="font-size: 16px"><b><?php echo $this->lang->line('sales_total'); ?></td>
+			<td class="total-value" id="total" style="font-size: 16px"><b><?php echo to_currency($total); ?></td>
 		</tr>
 
 		<?php
@@ -210,10 +214,10 @@ $(document).ready(function()
 			$splitpayment = explode(':', $payment['payment_type']);
 			$show_giftcard_remainder |= $splitpayment[0] == $this->lang->line('sales_giftcard');
 		?>
-			<tr>
+			<tr class="item-row-total">
 				<td colspan="<?php echo $invoice_columns-2; ?>" class="blank"> </td>
-				<td colspan="2" class="total-line"><?php echo $splitpayment[0]; ?></td>
-				<td class="total-value" id="paid"><?php echo to_currency( $payment['payment_amount'] * -1 ); ?></td>
+				<td colspan="2" class="total-line"><b>Payment Method :<?php echo $splitpayment[0]; ?></td>
+				<td class="total-value" id="paid"><b><?php echo to_currency( $payment['payment_amount'] * -1 ); ?></td>
 			</tr>
 		<?php
 		}
@@ -232,23 +236,74 @@ $(document).ready(function()
 		if(!empty($payments))
 		{
 		?>
-		<tr>
-			<td colspan="<?php echo $invoice_columns-2; ?>" class="blank"> </td>
-			<td colspan="2" class="total-line"><?php echo $this->lang->line($amount_change >= 0 ? ($only_sale_check ? 'sales_check_balance' : 'sales_change_due') : 'sales_amount_due') ; ?></td>
-			<td class="total-value" id="change"><?php echo to_currency($amount_change); ?></td>
+		<tr class="item-row-total">
+			<td colspan="<?php echo $invoice_columns-3; ?>" class="blank"> </td>
+			<td colspan="3" class="total-line"><b><?php echo $this->lang->line($amount_change >= 0 ? ($only_sale_check ? 'sales_check_balance' : 'sales_change_due') : 'sales_amount_due') ; ?></td>
+			<td class="total-value" id="change"><b><?php echo to_currency($amount_change); ?></td>
 		</tr>
 		<?php
 		}
 		?>
-
 	</table>
+		<hr>
+		<div id="block2">
+			<table id="metacominfo" style="float: left;">
+				<tr>
+					<td class="meta-head"> <span class="glyphicon glyphicon-earphone"></span> </td>
+					<td class="meta-body"><?php echo nl2br($company_tel) ?></td>
+				</tr>
+				<tr>
+					<td class="meta-head"> <span class="glyphicon glyphicon-envelope"></span> </td>
+					<td class="meta-body"><?php echo nl2br($company_email) ?></td>
+				</tr>
+				<tr>
+					<td class="meta-head"> <span class="glyphicon glyphicon-home"></span> </td>
+					<td class="meta-body"><?php echo nl2br($company_add) ?></td>
+				</tr>
+				<tr>
+					<td class="meta-head"> <span class="glyphicon glyphicon-globe"></span> </td>
+					<td class="meta-body"><?php echo nl2br($company_web) ?></td>
+				</tr>
+				
+			</table>
+			<table id="metacominfo" style="float: right; width:30%;">
+				<tr>
+					<td class="meta-body" colspan="2"> <b><span style="font-size: 18px">Payment Methods :</span></b> </td>
+				</tr>
+				<tr>
+					<td class="meta-body" colspan="2"> All the cheques should be written
+					in the favor of name <b>“Sinha Solutions"</b>
+					</td>
+				</tr>
+				<tr>
+					<td class="meta-body" colspan="2"> For Online Transfers : </td>
+				</tr>
+				<tr>
+					<td class="meta-small"> Account Name </td>
+					<td class="meta-small"> : Sinha Solutions </td>
+				</tr>
+				<tr>
+					<td class="meta-small"> Account Number </td>
+					<td class="meta-small"> : 0380 1003 6177 </td>
+				</tr>
+				<tr>
+					<td class="meta-small"> Bank </td>
+					<td class="meta-small"> : Hatton National Bank </td>
+				</tr>
+				<tr>
+					<td class="meta-small"> Branch </td>
+					<td class="meta-small"> : Piliyandala </td>
+				</tr>
+				
+			</table>
+		</div>
 
-	<div id="terms">
+	<!-- <div id="terms">
 		<div id="sale_return_policy1">
 			<h5>
 				<div><?php echo nl2br($this->config->item('payment_message')); ?></div>
-				<!-- <div style=''><?php echo empty($comments) ? '' : $this->lang->line('sales_comments') . ': ' . $comments; ?></div> -->
-				<!-- <div style='padding:4%;'><?php echo $this->config->item('invoice_default_comments'); ?></div> -->
+				<!-- <div style=''><?php echo empty($comments) ? '' : $this->lang->line('sales_comments') . ': ' . $comments; ?></div> 
+				<!-- <div style='padding:4%;'><?php echo $this->config->item('invoice_default_comments'); ?></div>
 			</h5>
 			<div style='padding:2%;font-size:10px; width:100%'><?php echo nl2br($this->config->item('return_policy')); ?></div>
 			<div style=''>
@@ -266,8 +321,227 @@ $(document).ready(function()
 		</div>
 		<br><br>
 		
-	</div>
+	</div> -->
 </div>
+<br><br><br><br><br>
+<div class="pagebreak"> </div>
+<!-- order form -->
+
+<div id="page-wrap">
+	<div id='barcode' style='float:right; text-align: center; font-size: 10px'>
+		<div id="newheader"><?php echo "Despatch" ?></div>
+			<img style='padding-top:4%; width:150px' src='data:image/png;base64,<?php echo $barcode; ?>' /><br>
+			<?php echo $sale_id; ?>
+	</div>
+	<div id="block">
+		<div id="logo">
+			<?php
+			if($this->Appconfig->get('company_logo') != '')
+			// if(true)
+			{
+			?><br>
+				<img id="image" style='width:500px' src="<?php echo base_url('uploads/' . $this->Appconfig->get('company_logo')); ?>" alt="company_logo" />
+				<!-- <img id="image" src="<?php echo base_url('images/flatlogo.png'); ?>" alt="company_logo" /> -->
+			<?php
+			}
+			?>
+			<div>&nbsp</div>
+			<?php
+			if($this->Appconfig->get('receipt_show_company_name'))
+			{
+			?>
+				<!-- <div id="company_name"><?php echo $this->config->item('company'); ?></div> -->
+			<?php
+			}
+			?>
+		</div>
+	</div>
+
+	<br>
+	<div id="block2">
+		<table id="meta" style="float: right">
+			<tr>
+				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_number');?> : </td>
+				<td class="meta-body"><?php echo $invoice_number; ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head"><?php echo $this->lang->line('common_date'); ?> : </td>
+				<td class="meta-body"><?php echo $transaction_date; ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head">Despatch No : </td>
+				<td class="meta-body"><?php echo "DN".$invoice_number; ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head">PO Number : </td>
+				<td class="meta-body">to be added</td>
+			</tr>
+		</table>
+		<div id="customer-title">
+			<?php
+			if(isset($customer))
+			{
+			?>
+				<div id="customer"><b><font face="calibri" size="4">Customer : </font><br><font face="calibri" size="3"><?php echo nl2br($customer_info) ?></font></b></div>
+			<?php
+			}
+			?>
+		</div>
+	</div><br>
+
+	<table id="items">
+		<tr>
+			<th><?php echo $this->lang->line('sales_item_number'); ?></th>
+			<?php
+				$invoice_columns = 5;
+				if($include_hsn)
+				{
+					$invoice_columns += 1;
+					?>
+					<th><?php echo $this->lang->line('sales_hsn'); ?></th>
+					<?php
+				}
+			?>
+			<th><?php echo $this->lang->line('sales_item_name'); ?></th>
+			
+			<th><?php echo $this->lang->line('sales_quantity'); ?></th>
+		</tr>
+
+		<?php
+		foreach($cart as $line=>$item)
+		{
+			if($item['print_option'] == PRINT_YES)
+			{
+			?>
+				<tr class="item-row">
+					<td style='text-align:center; width:10%'><?php echo $item['item_number']; ?></td>
+					<?php if($include_hsn): ?>
+						<td style='text-align:center;'><?php echo $item['hsn_code']; ?></td>
+					<?php endif; ?>
+					<td style='text-align:left;' class="item-name"><?php echo ($item['is_serialized'] || $item['allow_alt_description']) && !empty($item['description']) ? $item['description'] : $item['name'] . ' ' . $item['attribute_values']; if($item['is_serialized']){ echo '<br> (S/N. ' . $item['serialnumber'].')';} ?></td>
+					<!-- <td style='text-align:center;' class="warrenty"><?php echo ($item['warranty']); ?></td> -->
+					<td style='text-align:center;' class="warrenty"><?php echo to_quantity_decimals($item['quantity']); ?></td>
+					
+				<?php
+				if($item['is_serialized'])
+				{
+				?>
+					<!-- <tr class="item-row">
+						<td class="item-description" colspan="<?php echo $invoice_columns-1; ?>"></td>
+						<td style='text-align:center;'><?php echo $item['serialnumber']; ?></td>
+					</tr> -->
+				<?php
+				}
+			}
+		}
+		?>
+
+		<tr>
+			<td class="blank" colspan="<?php echo $invoice_columns; ?>" align="center"><?php echo '&nbsp;'; ?></td>
+		</tr>
+
+		<!-- <tr>
+			<td colspan="<?php echo $invoice_columns-2; ?>" class="blank-bottom"> </td>
+			<td colspan="2" class="total-line"><?php echo $this->lang->line('sales_sub_total'); ?></td>
+			<td class="total-value" id="subtotal"><?php echo to_currency($subtotal); ?></td>
+		</tr> -->
+
+		
+
+	</table>
+		<br><br><br><br><br>
+	<div id="block2">
+			<table id="metacominfo" style="float: left; width:40%;">
+				<tr>
+					<td class="meta-body" colspan="2"> <b><span style="font-size: 18px">Terms & Conditions :</span></b> </td>
+				</tr>
+				<tr>
+					<td class="meta-body" colspan="2">Complaints can only be accepted if made in
+					writing within 30 days of receipt of goods.</b>
+					</td>
+				</tr>
+			</table>
+			
+			<table id="metacominfo" style="float: right; width:30%; ">
+				<tr>
+					<td class="meta-body" style="text-align: center"> <b><span style="font-size: 18px">...........................</span></b> </td>
+				</tr>
+				<tr>
+					<td class="meta-body" style="text-align: center">CHECKED BY<br>Hansika Kavindi</b>
+					</td>
+				</tr>
+				<tr>
+					<td class="meta-body" style="text-align: center"></b>
+					</td>
+				</tr>
+			</table>
+			
+		</div><br><br>
+		<div>
+			<table id="metacominfo" style="float: left">
+					<tr>
+						<td class="meta-head"> <span class="glyphicon glyphicon-earphone"></span> </td>
+						<td class="meta-body"><?php echo nl2br($company_tel) ?></td>
+					</tr>
+					<tr>
+						<td class="meta-head"> <span class="glyphicon glyphicon-envelope"></span> </td>
+						<td class="meta-body"><?php echo nl2br($company_email) ?></td>
+					</tr>
+					<tr>
+						<td class="meta-head"> <span class="glyphicon glyphicon-home"></span> </td>
+						<td class="meta-body"><?php echo nl2br($company_add) ?></td>
+					</tr>
+					<tr>
+						<td class="meta-head"> <span class="glyphicon glyphicon-globe"></span> </td>
+						<td class="meta-body"><?php echo nl2br($company_web) ?></td>
+					</tr>
+					
+				</table>
+				<table id="metacominfo" style="float: right; width:30%;">
+					<tr>
+						<td class="meta-body" style="text-align: center"> <b><span style="font-size: 18px;">...........................</span></b> </td>
+					</tr>
+					<tr>
+						<td class="meta-body" style="text-align: center">Goods Received By</b>
+						</td>
+					</tr>
+				</table>
+				
+		</div>
+	<!-- <div id="terms">
+		<div id="sale_return_policy1">
+			<h5>
+				<!-- <div><?php echo nl2br($this->config->item('payment_message')); ?></div> -->
+				<!-- <div style=''><?php echo empty($comments) ? '' : $this->lang->line('sales_comments') . ': ' . $comments; ?></div> 
+				<!-- <div style='padding:4%;'><?php echo $this->config->item('invoice_default_comments'); ?></div> 
+			</h5>
+			<!-- <div style='padding:2%;font-size:10px; width:100%'><?php echo nl2br($this->config->item('return_policy')); ?></div> 
+			<div id="sign_table">
+				<table style="width:50%;">
+					<tr>
+						<th><br>Prepared by (Store Assistant) </th><td class=""><br>: ........................................</td>
+					</tr>
+					<tr>
+						<th><br>Checked by (Accountant) </th><td class=""><br>: ........................................</td>
+					</tr>
+					<tr>
+						<th><br>Checked by (Driver) </th><td class=""><br>: ........................................</td>
+					</tr>
+					<tr>
+						<th></th><td class=""></td>
+					</tr>
+					<tr>
+						<th><br><br>Hardware Owner's Signature and Seal</th><td class=""><br><br>: ........................................</td>
+					</tr>
+				</table>
+			<br><br>
+			</div>
+		</div>
+		<br><br>
+		
+	</div> -->
+</div>
+
 
 <script type="text/javascript">
 $(window).on("load", function()
@@ -298,5 +572,11 @@ $(window).on("load", function()
 	}
 });
 </script>
+
+<style type="text/css">
+   @media print {
+    .pagebreak { page-break-before: always; } /* page-break-after works, as well */
+	}
+</style>
 
 <?php $this->load->view("partial/footer"); ?>

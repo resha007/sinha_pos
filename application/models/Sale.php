@@ -29,6 +29,7 @@ class Sale extends CI_Model
 				MAX(DATE(sales.sale_time)) AS sale_date,
 				MAX(sales.sale_time) AS sale_time,
 				MAX(sales.comment) AS comment,
+				MAX(sales.po_no) AS po_no,
 				MAX(sales.sale_status) AS sale_status,
 				MAX(sales.invoice_number) AS invoice_number,
 				MAX(sales.quote_number) AS quote_number,
@@ -526,6 +527,7 @@ class Sale extends CI_Model
 		$customer_id,
 		$employee_id,
 		$comment,
+		$po_no,
 		$invoice_number,
 		$work_order_number,
 		$quote_number,
@@ -549,6 +551,7 @@ class Sale extends CI_Model
 			'customer_id'		=> $this->Customer->exists($customer_id) ? $customer_id : NULL,
 			'employee_id'		=> $employee_id,
 			'comment'			=> $comment,
+			'po_no'				=> $po_no,
 			'sale_status'		=> $sale_status,
 			'invoice_number'	=> $invoice_number,
 			'quote_number'		=> $quote_number,
@@ -1247,6 +1250,20 @@ class Sale extends CI_Model
 
 		if ($row != NULL) {
 			return $row->comment;
+		}
+
+		return NULL;
+	}
+
+	public function get_po_no($sale_id)
+	{
+		$this->db->from('sales');
+		$this->db->where('sale_id', $sale_id);
+
+		$row = $this->db->get()->row();
+
+		if ($row != NULL) {
+			return $row->po_no;
 		}
 
 		return NULL;

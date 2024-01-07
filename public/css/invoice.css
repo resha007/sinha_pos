@@ -6,12 +6,16 @@
 
 * { margin: 0; padding: 0; }
 /*body { font: 14px/1.4 Georgia, serif; }*/
+body{
+	-webkit-print-color-adjust:exact !important;
+	print-color-adjust:exact !important;
+  }
 #page-wrap { width: 100%; margin: 0 auto; max-width: 800px; }
 
 #page-wrap textarea { border: 0; font-size: 14px; overflow: hidden; resize: none; }
 #page-wrap table { border-collapse: collapse; }
-#page-wrap table td{ border: 1px solid black; padding: -10px; }
-#page-wrap table th{ border: 1px solid black; padding: 5px; }
+#page-wrap table td{ border: 0px solid black; padding: -10px; }
+#page-wrap table th{ border: 0px solid black; padding: 5px; }
 #page-wrap table td { padding: 2px; }
 
 #header { margin: 20px 0; background: #222; text-align: center; color: white; font-size: 2.0em; font-weight: bold; letter-spacing: 4px; padding: 10px 0; }
@@ -34,15 +38,26 @@
 /* second row */
 #block2 { overflow: hidden; width: 100%; }
 #company-title { float: left; font-size: 12px; }
-#meta { margin-top: 1px; width: 150px; float: right; border: 0px}
+#meta { margin-top: 0px; width: 200px; float: right; }
 #meta td { text-align: right;   border: none}
-#meta td.meta-head { text-align: left; background: #eee; }
+#meta td.meta-head { text-align: right; font-weight: bold; font-family: 'calibri'; font-size: 15px;}
+#meta td.meta-body { text-align: left; font-family: 'calibri'; font-size: 15px;}
 #meta td textarea { width: 100%; height: 20px; text-align: right; }
 
-#items { clear: both; width: 100%; border: 1px solid black; font-size: 12px}
-#items th { background: #eee; text-align: center; }
+#metacominfo { margin-top: 0px; width: 200px; float: left; width:50%}
+#metacominfo td { text-align: right;   border: none}
+#metacominfo td.meta-head { text-align: right; font-weight: bold; font-family: 'calibri'; font-size: 15px;}
+#metacominfo td.meta-body { text-align: left; font-family: 'calibri'; font-size: 15px;}
+#metacominfo td textarea { width: 100%; height: 20px; text-align: right; }
+
+#metacominfo td.meta-small { text-align: left; font-family: 'calibri'; font-size: 12px; font-weight: bold;}
+
+
+#items { clear: both; width: 100%; border: 0px solid black; font-size: 12px}
+#items th { background-color: hwb(23 24% 16%); text-align: center; text-transform: uppercase;font-size: 14px; font-family: Verdana, Geneva, Tahoma, sans-serif; color: #000; border: 0px solid black;}
 #items textarea { width: 80px; height: 20px; }
-#items tr.item-row td { border: 0; vertical-align: top; }
+#items tr.item-row td { border: 0; vertical-align: top; font-size: 14px; font-family: Arial, Helvetica, sans-serif; border-bottom: 1pt solid #000;}
+#items tr.item-row-total td { border: 0; vertical-align: top; font-size: 14px; font-family: Arial, Helvetica, sans-serif;}
 #items td.description { width: 300px; }
 #items td.item-name { width: 350px; }
 #items td.warrenty { width: 50px; }

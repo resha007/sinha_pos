@@ -549,6 +549,10 @@ if (isset($success)) {
 								<?php echo form_label($this->lang->line('common_comments'), 'comments', array('class' => 'control-label', 'id' => 'comment_label', 'for' => 'comment')); ?>
 								<?php echo form_textarea(array('name' => 'comment', 'id' => 'comment', 'class' => 'form-control input-sm', 'value' => $comment, 'rows' => '2')); ?>
 							</div>
+							<div class="col-xs-12">
+								<?php echo form_label('PO No.', 'po_no', array('class' => 'control-label', 'id' => 'po_no_label', 'for' => 'po_no')); ?>
+								<?php echo form_input(array('name' => 'po_no', 'id' => 'po_no', 'class' => 'form-control input-sm', 'value' => $po_no)); ?>
+							</div>
 						</div>
 					</div>
 					<div class="row">
@@ -733,6 +737,12 @@ if (isset($success)) {
 		$('#comment').keyup(function() {
 			$.post("<?php echo site_url($controller_name . '/set_comment'); ?>", {
 				comment: $('#comment').val()
+			});
+		});
+
+		$('#po_no').keyup(function() {
+			$.post("<?php echo site_url($controller_name . '/set_po_no'); ?>", {
+				po_no: $('#po_no').val()
 			});
 		});
 

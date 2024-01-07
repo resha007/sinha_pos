@@ -160,6 +160,24 @@ class Sale_lib
 		$this->CI->session->unset_userdata('sales_comment');
 	}
 
+	public function get_po_no()
+	{
+		// avoid returning a NULL that results in a 0 in the comment if nothing is set/available
+		$po_no = $this->CI->session->userdata('sales_po_no');
+
+		return empty($po_no) ? '' : $po_no;
+	}
+
+	public function set_po_no($po_no)
+	{
+		$this->CI->session->set_userdata('sales_po_no', $po_no);
+	}
+
+	public function clear_po_no()
+	{
+		$this->CI->session->unset_userdata('sales_po_no');
+	}
+
 	public function get_invoice_number()
 	{
 		return $this->CI->session->userdata('sales_invoice_number');
@@ -989,6 +1007,7 @@ class Sale_lib
 		$this->set_work_order_number($this->CI->Sale->get_work_order_number($sale_id));
 		$this->set_sale_type($this->CI->Sale->get_sale_type($sale_id));
 		$this->set_comment($this->CI->Sale->get_comment($sale_id));
+		$this->set_po_no($this->CI->Sale->get_po_no($sale_id));
 		$this->set_dinner_table($this->CI->Sale->get_dinner_table($sale_id));
 		$this->CI->session->set_userdata('sale_id', $sale_id);
 	}
@@ -1005,6 +1024,7 @@ class Sale_lib
 		$this->clear_table();
 		$this->empty_cart();
 		$this->clear_comment();
+		$this->clear_po_no();
 		$this->clear_email_receipt();
 		$this->clear_invoice_number();
 		$this->clear_quote_number();
