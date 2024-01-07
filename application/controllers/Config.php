@@ -870,8 +870,8 @@ class Config extends Secure_Controller
 		$config = array('upload_path' => './uploads/',
 			'allowed_types' => 'gif|jpg|png',
 			'max_size' => '1024',
-			'max_width' => '800',
-			'max_height' => '680',
+			'max_width' => '1100',
+			'max_height' => '750',
 			'file_name' => 'company_logo');
 		$this->load->library('upload', $config);
 		$this->upload->do_upload('company_logo');
