@@ -11,7 +11,7 @@
   <title><?php echo $this->config->item('company') . ' | ' . $this->lang->line('common_powered_by') . ' Infinizee ' ?></title>
   <link href="<?=base_url()?>dashboard_req/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="<?=base_url()?>dashboard_req/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="<?=base_url()?>dashboard_req/css/ruang-admin.min.css" rel="stylesheet">
+  <link href="<?=base_url()?>dashboard_req/css/ruang-admin.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -22,7 +22,7 @@
         <div class="sidebar-brand-icon">
           <!-- <img src="img/logo/logo2.png"> -->
         </div>
-        <div class="sidebar-brand-text mx-3">PSCOM POS</div>
+        <div class="sidebar-brand-text mx-3">777 POS</div>
       </a>
       <hr class="sidebar-divider my-0">
       <!-- <li class="nav-item active">
@@ -60,7 +60,7 @@
             <i class="fa fa-bars"></i>
           </button>
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown no-arrow">
+            <!-- <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
@@ -209,7 +209,7 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">View All Taks</a>
               </div>
-            </li>
+            </li> -->
             <div class="topbar-divider d-none d-sm-block"></div>
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
