@@ -11,7 +11,7 @@
   <title><?php echo $this->config->item('company') . ' | ' . $this->lang->line('common_powered_by') . ' Infinizee ' ?></title>
   <link href="<?=base_url()?>dashboard_req/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="<?=base_url()?>dashboard_req/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="<?=base_url()?>dashboard_req/css/ruang-admin.min.css" rel="stylesheet">
+  <link href="<?=base_url()?>dashboard_req/css/ruang-admin.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -50,7 +50,7 @@
             </div> -->
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-2 col-md-6 mb-4">
+            <!-- <div class="col-xl-2 col-md-6 mb-4">
               <div class="card h-100">
                 <div class="card-body">
                   <div class="row align-items-center">
@@ -65,7 +65,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
 
             <!-- Earnings (Annual) Card Example -->
@@ -145,7 +145,7 @@
             </div>
 
             <!-- Pending Requests Card Example -->
-            <div class="col-xl-2 col-md-6 mb-4">
+            <!-- <div class="col-xl-2 col-md-6 mb-4">
               <div class="card h-100">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -160,7 +160,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <br><br><br><hr>
 
