@@ -59,7 +59,7 @@ $(document).ready(function()
 			// if(true)
 			{
 			?>
-				<img id="image" style='width:500px' src="<?php echo base_url('uploads/' . $this->Appconfig->get('company_logo')); ?>" alt="company_logo" />
+				<img id="image" style='width:400px' src="<?php echo base_url('uploads/' . $this->Appconfig->get('company_logo')); ?>" alt="company_logo" />
 				<!-- <img id="image" src="<?php echo base_url('images/flatlogo.png'); ?>" alt="company_logo" /> -->
 			<?php
 			}
@@ -74,18 +74,35 @@ $(document).ready(function()
 			}
 			?>
 		</div>
+		<table id="metacominfo" style="float: left;">
+				<tr>
+					<td class="meta-head"> <span class="glyphicon glyphicon-earphone"></span> </td>
+					<td class="meta-body"><?php echo nl2br($company_tel) ?></td>
+				</tr>
+				<tr>
+					<td class="meta-head"> <span class="glyphicon glyphicon-globe"></span> </td>
+					<td class="meta-body"><?php echo nl2br($company_web) ?></td>
+				</tr>
+				<tr>
+					<td class="meta-head"> <span class="glyphicon glyphicon-envelope"></span> </td>
+					<td class="meta-body"><?php echo nl2br($company_email) ?></td>
+				</tr>
+				<tr>
+					<td class="meta-head"> <span class="glyphicon glyphicon-home"></span> </td>
+					<td class="meta-body"><?php echo nl2br($company_add) ?></td>
+				</tr>
+			</table>
 	</div>
 
-	<br>
 	<div id="block2">
 		<table id="meta" style="float: right">
 			<tr>
-				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_number');?> : </td>
-				<td class="meta-body"><?php echo $invoice_number; ?></td>
-			</tr>
-			<tr>
 				<td class="meta-head"><?php echo $this->lang->line('common_date'); ?> : </td>
 				<td class="meta-body"><?php echo $transaction_date; ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_number');?> : </td>
+				<td class="meta-body"><?php echo $invoice_number; ?></td>
 			</tr>
 			<tr>
 				<td class="meta-head">PO Number : </td>
@@ -100,11 +117,12 @@ $(document).ready(function()
 				<td class="meta-body"><?php echo $payment_method ?></td>
 			</tr> -->
 		</table>
+
 		<div id="customer-title">
 			<?php
 			if(isset($customer))
 			{
-			?>
+			?><br><br><br>
 				<div id="customer"><b><font face="calibri" size="4">Invoice to : </font><br><font face="calibri" size="3"><?php echo nl2br($customer_info) ?></font></b></div>
 			<?php
 			}
@@ -153,7 +171,7 @@ $(document).ready(function()
 					<?php if($include_hsn): ?>
 						<td style='text-align:center;'><?php echo $item['hsn_code']; ?></td>
 					<?php endif; ?>
-					<td style='text-align:left;' class="item-name"><?php echo ($item['is_serialized'] || $item['allow_alt_description']) && !empty($item['description']) ? $item['description'] : $item['name'] . ' ' . $item['attribute_values']; if($item['is_serialized']){ echo '<br> (S/N. ' . $item['serialnumber'].')';} ?></td>
+					<td style='text-align:center;' class="item-name"><?php echo ($item['is_serialized'] || $item['allow_alt_description']) && !empty($item['description']) ? $item['description'] : $item['name'] . ' ' . $item['attribute_values']; if($item['is_serialized']){ echo '<br> (S/N. ' . $item['serialnumber'].')';} ?></td>
 					<!-- <td style='text-align:center;' class="warrenty"><?php echo ($item['warranty']); ?></td> -->
 					<td style='text-align:center;' class="warrenty"><?php echo to_quantity_decimals($item['quantity']); ?></td>
 					<td style='text-align:center;' class="total-value"><?php echo to_currency($item['price']); ?></td>
@@ -247,25 +265,7 @@ $(document).ready(function()
 	</table>
 		<hr>
 		<div id="block2">
-			<table id="metacominfo" style="float: left;">
-				<tr>
-					<td class="meta-head"> <span class="glyphicon glyphicon-earphone"></span> </td>
-					<td class="meta-body"><?php echo nl2br($company_tel) ?></td>
-				</tr>
-				<tr>
-					<td class="meta-head"> <span class="glyphicon glyphicon-envelope"></span> </td>
-					<td class="meta-body"><?php echo nl2br($company_email) ?></td>
-				</tr>
-				<tr>
-					<td class="meta-head"> <span class="glyphicon glyphicon-home"></span> </td>
-					<td class="meta-body"><?php echo nl2br($company_add) ?></td>
-				</tr>
-				<tr>
-					<td class="meta-head"> <span class="glyphicon glyphicon-globe"></span> </td>
-					<td class="meta-body"><?php echo nl2br($company_web) ?></td>
-				</tr>
-				
-			</table>
+			
 			<table id="metacominfo" style="float: right; width:30%;">
 				<tr>
 					<td class="meta-body" colspan="2"> <b><span style="font-size: 18px">Payment Methods :</span></b> </td>
@@ -327,7 +327,7 @@ $(document).ready(function()
 <div class="pagebreak"> </div>
 <!-- order form -->
 
-<div id="page-wrap">
+<div id="page-wrap" class="order-form">
 	<div id='barcode' style='float:right; text-align: center; font-size: 10px'>
 		<div id="newheader"><?php echo "Despatch" ?></div>
 			<img style='padding-top:4%; width:150px' src='data:image/png;base64,<?php echo $barcode; ?>' /><br>
@@ -340,7 +340,7 @@ $(document).ready(function()
 			// if(true)
 			{
 			?><br>
-				<img id="image" style='width:500px' src="<?php echo base_url('uploads/' . $this->Appconfig->get('company_logo')); ?>" alt="company_logo" />
+				<img id="image" style='width:400px' src="<?php echo base_url('uploads/' . $this->Appconfig->get('company_logo')); ?>" alt="company_logo" />
 				<!-- <img id="image" src="<?php echo base_url('images/flatlogo.png'); ?>" alt="company_logo" /> -->
 			<?php
 			}
@@ -355,6 +355,24 @@ $(document).ready(function()
 			}
 			?>
 		</div>
+		<table id="metacominfo" style="float: left;">
+			<tr>
+				<td class="meta-head"> <span class="glyphicon glyphicon-earphone"></span> </td>
+				<td class="meta-body"><?php echo nl2br($company_tel) ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head"> <span class="glyphicon glyphicon-globe"></span> </td>
+				<td class="meta-body"><?php echo nl2br($company_web) ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head"> <span class="glyphicon glyphicon-envelope"></span> </td>
+				<td class="meta-body"><?php echo nl2br($company_email) ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head"> <span class="glyphicon glyphicon-home"></span> </td>
+				<td class="meta-body"><?php echo nl2br($company_add) ?></td>
+			</tr>
+		</table>
 	</div>
 
 	<br>
@@ -381,7 +399,7 @@ $(document).ready(function()
 			<?php
 			if(isset($customer))
 			{
-			?>
+			?><br><br><br>
 				<div id="customer"><b><font face="calibri" size="4">Customer : </font><br><font face="calibri" size="3"><?php echo nl2br($customer_info) ?></font></b></div>
 			<?php
 			}
@@ -418,7 +436,7 @@ $(document).ready(function()
 					<?php if($include_hsn): ?>
 						<td style='text-align:center;'><?php echo $item['hsn_code']; ?></td>
 					<?php endif; ?>
-					<td style='text-align:left;' class="item-name"><?php echo ($item['is_serialized'] || $item['allow_alt_description']) && !empty($item['description']) ? $item['description'] : $item['name'] . ' ' . $item['attribute_values']; if($item['is_serialized']){ echo '<br> (S/N. ' . $item['serialnumber'].')';} ?></td>
+					<td style='text-align:center;' class="item-name"><?php echo ($item['is_serialized'] || $item['allow_alt_description']) && !empty($item['description']) ? $item['description'] : $item['name'] . ' ' . $item['attribute_values']; if($item['is_serialized']){ echo '<br> (S/N. ' . $item['serialnumber'].')';} ?></td>
 					<!-- <td style='text-align:center;' class="warrenty"><?php echo ($item['warranty']); ?></td> -->
 					<td style='text-align:center;' class="warrenty"><?php echo to_quantity_decimals($item['quantity']); ?></td>
 					
@@ -449,7 +467,7 @@ $(document).ready(function()
 		
 
 	</table>
-		<br><br><br><br><br>
+		<br><br>
 	<div id="block2">
 			<table id="metacominfo" style="float: left; width:40%;">
 				<tr>
@@ -462,52 +480,221 @@ $(document).ready(function()
 				</tr>
 			</table>
 			
-			<table id="metacominfo" style="float: right; width:30%; ">
+			<table id="metacominfo" style="float: right; width:50%; ">
 				<tr>
+					<td class="meta-body" style="text-align: center"> <b><span style="font-size: 18px">...........................</span></b> </td>
 					<td class="meta-body" style="text-align: center"> <b><span style="font-size: 18px">...........................</span></b> </td>
 				</tr>
 				<tr>
-					<td class="meta-body" style="text-align: center">CHECKED BY<br>Hansika Kavindi</b>
-					</td>
-				</tr>
-				<tr>
-					<td class="meta-body" style="text-align: center"></b>
-					</td>
+					<td class="meta-body" style="text-align: center">CHECKED BY<br>Hansika Kavindi</b></td>
+					<td class="meta-body" style="text-align: center">Goods Received By</b>
 				</tr>
 			</table>
 			
 		</div><br><br>
-		<div>
-			<table id="metacominfo" style="float: left">
+	
+	<!-- <div id="terms">
+		<div id="sale_return_policy1">
+			<h5>
+				<!-- <div><?php echo nl2br($this->config->item('payment_message')); ?></div> -->
+				<!-- <div style=''><?php echo empty($comments) ? '' : $this->lang->line('sales_comments') . ': ' . $comments; ?></div> 
+				<!-- <div style='padding:4%;'><?php echo $this->config->item('invoice_default_comments'); ?></div> 
+			</h5>
+			<!-- <div style='padding:2%;font-size:10px; width:100%'><?php echo nl2br($this->config->item('return_policy')); ?></div> 
+			<div id="sign_table">
+				<table style="width:50%;">
 					<tr>
-						<td class="meta-head"> <span class="glyphicon glyphicon-earphone"></span> </td>
-						<td class="meta-body"><?php echo nl2br($company_tel) ?></td>
+						<th><br>Prepared by (Store Assistant) </th><td class=""><br>: ........................................</td>
 					</tr>
 					<tr>
-						<td class="meta-head"> <span class="glyphicon glyphicon-envelope"></span> </td>
-						<td class="meta-body"><?php echo nl2br($company_email) ?></td>
+						<th><br>Checked by (Accountant) </th><td class=""><br>: ........................................</td>
 					</tr>
 					<tr>
-						<td class="meta-head"> <span class="glyphicon glyphicon-home"></span> </td>
-						<td class="meta-body"><?php echo nl2br($company_add) ?></td>
+						<th><br>Checked by (Driver) </th><td class=""><br>: ........................................</td>
 					</tr>
 					<tr>
-						<td class="meta-head"> <span class="glyphicon glyphicon-globe"></span> </td>
-						<td class="meta-body"><?php echo nl2br($company_web) ?></td>
-					</tr>
-					
-				</table>
-				<table id="metacominfo" style="float: right; width:30%;">
-					<tr>
-						<td class="meta-body" style="text-align: center"> <b><span style="font-size: 18px;">...........................</span></b> </td>
+						<th></th><td class=""></td>
 					</tr>
 					<tr>
-						<td class="meta-body" style="text-align: center">Goods Received By</b>
-						</td>
+						<th><br><br>Hardware Owner's Signature and Seal</th><td class=""><br><br>: ........................................</td>
 					</tr>
 				</table>
-				
+			<br><br>
+			</div>
 		</div>
+		<br><br>
+		
+	</div> -->
+</div>
+
+<!-- order form copy-->
+
+<div id="page-wrap" class="order-form" style="font-size: 5px;">
+	<div id='barcode' style='float:right; text-align: center; font-size: 10px'>
+		<div id="newheader"><?php echo "Despatch" ?> - Copy</div>
+			<img style='padding-top:4%; width:150px' src='data:image/png;base64,<?php echo $barcode; ?>' /><br>
+			<?php echo $sale_id; ?>
+	</div>
+	<div id="block">
+		<div id="logo">
+			<?php
+			if($this->Appconfig->get('company_logo') != '')
+			// if(true)
+			{
+			?><br>
+				<img id="image" style='width:400px' src="<?php echo base_url('uploads/' . $this->Appconfig->get('company_logo')); ?>" alt="company_logo" />
+				<!-- <img id="image" src="<?php echo base_url('images/flatlogo.png'); ?>" alt="company_logo" /> -->
+			<?php
+			}
+			?>
+			<div>&nbsp</div>
+			<?php
+			if($this->Appconfig->get('receipt_show_company_name'))
+			{
+			?>
+				<!-- <div id="company_name"><?php echo $this->config->item('company'); ?></div> -->
+			<?php
+			}
+			?>
+		</div>
+		<table id="metacominfo" style="float: left;">
+			<tr>
+				<td class="meta-head"> <span class="glyphicon glyphicon-earphone"></span> </td>
+				<td class="meta-body"><?php echo nl2br($company_tel) ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head"> <span class="glyphicon glyphicon-globe"></span> </td>
+				<td class="meta-body"><?php echo nl2br($company_web) ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head"> <span class="glyphicon glyphicon-envelope"></span> </td>
+				<td class="meta-body"><?php echo nl2br($company_email) ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head"> <span class="glyphicon glyphicon-home"></span> </td>
+				<td class="meta-body"><?php echo nl2br($company_add) ?></td>
+			</tr>
+		</table>
+	</div>
+
+	<br>
+	<div id="block2">
+		<table id="meta" style="float: right">
+			<tr>
+				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_number');?> : </td>
+				<td class="meta-body"><?php echo $invoice_number; ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head"><?php echo $this->lang->line('common_date'); ?> : </td>
+				<td class="meta-body"><?php echo $transaction_date; ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head">Despatch No : </td>
+				<td class="meta-body"><?php echo "DN".$invoice_number; ?></td>
+			</tr>
+			<tr>
+				<td class="meta-head">PO Number : </td>
+				<td class="meta-body">to be added</td>
+			</tr>
+		</table>
+		<div id="customer-title">
+			<?php
+			if(isset($customer))
+			{
+			?><br><br><br>
+				<div id="customer"><b><font face="calibri" size="4">Customer : </font><br><font face="calibri" size="3"><?php echo nl2br($customer_info) ?></font></b></div>
+			<?php
+			}
+			?>
+		</div>
+	</div><br>
+
+	<table id="items">
+		<tr>
+			<th><?php echo $this->lang->line('sales_item_number'); ?></th>
+			<?php
+				$invoice_columns = 5;
+				if($include_hsn)
+				{
+					$invoice_columns += 1;
+					?>
+					<th><?php echo $this->lang->line('sales_hsn'); ?></th>
+					<?php
+				}
+			?>
+			<th><?php echo $this->lang->line('sales_item_name'); ?></th>
+			
+			<th><?php echo $this->lang->line('sales_quantity'); ?></th>
+		</tr>
+
+		<?php
+		foreach($cart as $line=>$item)
+		{
+			if($item['print_option'] == PRINT_YES)
+			{
+			?>
+				<tr class="item-row">
+					<td style='text-align:center; width:10%'><?php echo $item['item_number']; ?></td>
+					<?php if($include_hsn): ?>
+						<td style='text-align:center;'><?php echo $item['hsn_code']; ?></td>
+					<?php endif; ?>
+					<td style='text-align:center;' class="item-name"><?php echo ($item['is_serialized'] || $item['allow_alt_description']) && !empty($item['description']) ? $item['description'] : $item['name'] . ' ' . $item['attribute_values']; if($item['is_serialized']){ echo '<br> (S/N. ' . $item['serialnumber'].')';} ?></td>
+					<!-- <td style='text-align:center;' class="warrenty"><?php echo ($item['warranty']); ?></td> -->
+					<td style='text-align:center;' class="warrenty"><?php echo to_quantity_decimals($item['quantity']); ?></td>
+					
+				<?php
+				if($item['is_serialized'])
+				{
+				?>
+					<!-- <tr class="item-row">
+						<td class="item-description" colspan="<?php echo $invoice_columns-1; ?>"></td>
+						<td style='text-align:center;'><?php echo $item['serialnumber']; ?></td>
+					</tr> -->
+				<?php
+				}
+			}
+		}
+		?>
+
+		<tr>
+			<td class="blank" colspan="<?php echo $invoice_columns; ?>" align="center"><?php echo '&nbsp;'; ?></td>
+		</tr>
+
+		<!-- <tr>
+			<td colspan="<?php echo $invoice_columns-2; ?>" class="blank-bottom"> </td>
+			<td colspan="2" class="total-line"><?php echo $this->lang->line('sales_sub_total'); ?></td>
+			<td class="total-value" id="subtotal"><?php echo to_currency($subtotal); ?></td>
+		</tr> -->
+
+		
+
+	</table>
+		<br><br>
+	<div id="block2">
+			<table id="metacominfo" style="float: left; width:40%;">
+				<tr>
+					<td class="meta-body" colspan="2"> <b><span style="font-size: 18px">Terms & Conditions :</span></b> </td>
+				</tr>
+				<tr>
+					<td class="meta-body" colspan="2">Complaints can only be accepted if made in
+					writing within 30 days of receipt of goods.</b>
+					</td>
+				</tr>
+			</table>
+			
+			<table id="metacominfo" style="float: right; width:50%; ">
+				<tr>
+					<td class="meta-body" style="text-align: center"> <b><span style="font-size: 18px">...........................</span></b> </td>
+					<td class="meta-body" style="text-align: center"> <b><span style="font-size: 18px">...........................</span></b> </td>
+				</tr>
+				<tr>
+					<td class="meta-body" style="text-align: center">CHECKED BY<br>Hansika Kavindi</b></td>
+					<td class="meta-body" style="text-align: center">Goods Received By</b>
+				</tr>
+			</table>
+			
+		</div><br><br>
+	
 	<!-- <div id="terms">
 		<div id="sale_return_policy1">
 			<h5>
