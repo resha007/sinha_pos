@@ -764,6 +764,19 @@ $(window).on("load", function()
    @media print {
     .pagebreak { page-break-before: always; } /* page-break-after works, as well */
 	}
+
+	@media print {
+    #items th {
+        background-color: hwb(23 24% 16%) !important;
+        print-color-adjust: exact; 
+    }
+	}
+
+	@media print {
+		th {
+			color: white !important;
+		}
+	}
 </style>
 
 <?php $this->load->view("partial/footer"); ?>
