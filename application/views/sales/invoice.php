@@ -379,10 +379,6 @@ $(document).ready(function()
 	<div id="block2">
 		<table id="meta" style="float: right">
 			<tr>
-				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_number');?> : </td>
-				<td class="meta-body"><?php echo $invoice_number; ?></td>
-			</tr>
-			<tr>
 				<td class="meta-head"><?php echo $this->lang->line('common_date'); ?> : </td>
 				<td class="meta-body"><?php echo $transaction_date; ?></td>
 			</tr>
@@ -391,8 +387,12 @@ $(document).ready(function()
 				<td class="meta-body"><?php echo "DN".$invoice_number; ?></td>
 			</tr>
 			<tr>
+				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_number');?> : </td>
+				<td class="meta-body"><?php echo $invoice_number; ?></td>
+			</tr>
+			<tr>
 				<td class="meta-head">PO Number : </td>
-				<td class="meta-body">to be added</td>
+				<td class="meta-body"><?php echo $po_no; ?></td>
 			</tr>
 		</table>
 		<div id="customer-title">
@@ -580,11 +580,7 @@ $(document).ready(function()
 	<br>
 	<div id="block2">
 		<table id="meta" style="float: right">
-			<tr>
-				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_number');?> : </td>
-				<td class="meta-body"><?php echo $invoice_number; ?></td>
-			</tr>
-			<tr>
+		<tr>
 				<td class="meta-head"><?php echo $this->lang->line('common_date'); ?> : </td>
 				<td class="meta-body"><?php echo $transaction_date; ?></td>
 			</tr>
@@ -593,8 +589,12 @@ $(document).ready(function()
 				<td class="meta-body"><?php echo "DN".$invoice_number; ?></td>
 			</tr>
 			<tr>
+				<td class="meta-head"><?php echo $this->lang->line('sales_invoice_number');?> : </td>
+				<td class="meta-body"><?php echo $invoice_number; ?></td>
+			</tr>
+			<tr>
 				<td class="meta-head">PO Number : </td>
-				<td class="meta-body">to be added</td>
+				<td class="meta-body"><?php echo $po_no; ?></td>
 			</tr>
 		</table>
 		<div id="customer-title">
