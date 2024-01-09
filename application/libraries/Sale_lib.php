@@ -178,6 +178,24 @@ class Sale_lib
 		$this->CI->session->unset_userdata('sales_po_no');
 	}
 
+	public function get_credit_period()
+	{
+		// avoid returning a NULL that results in a 0 in the comment if nothing is set/available
+		$credit_period = $this->CI->session->userdata('sales_credit_period');
+
+		return empty($credit_period) ? '' : $credit_period;
+	}
+
+	public function set_credit_period($credit_period)
+	{
+		$this->CI->session->set_userdata('sales_credit_period', $credit_period);
+	}
+
+	public function clear_credit_period()
+	{
+		$this->CI->session->unset_userdata('sales_credit_period');
+	}
+
 	public function get_invoice_number()
 	{
 		return $this->CI->session->userdata('sales_invoice_number');
@@ -1008,6 +1026,7 @@ class Sale_lib
 		$this->set_sale_type($this->CI->Sale->get_sale_type($sale_id));
 		$this->set_comment($this->CI->Sale->get_comment($sale_id));
 		$this->set_po_no($this->CI->Sale->get_po_no($sale_id));
+		$this->set_credit_period($this->CI->Sale->get_credit_period($sale_id));
 		$this->set_dinner_table($this->CI->Sale->get_dinner_table($sale_id));
 		$this->CI->session->set_userdata('sale_id', $sale_id);
 	}
@@ -1025,6 +1044,7 @@ class Sale_lib
 		$this->empty_cart();
 		$this->clear_comment();
 		$this->clear_po_no();
+		$this->clear_credit_period();
 		$this->clear_email_receipt();
 		$this->clear_invoice_number();
 		$this->clear_quote_number();

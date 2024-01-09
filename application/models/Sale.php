@@ -30,6 +30,7 @@ class Sale extends CI_Model
 				MAX(sales.sale_time) AS sale_time,
 				MAX(sales.comment) AS comment,
 				MAX(sales.po_no) AS po_no,
+				MAX(sales.credit_period) AS credit_period,
 				MAX(sales.sale_status) AS sale_status,
 				MAX(sales.invoice_number) AS invoice_number,
 				MAX(sales.quote_number) AS quote_number,
@@ -528,6 +529,7 @@ class Sale extends CI_Model
 		$employee_id,
 		$comment,
 		$po_no,
+		$credit_period,
 		$invoice_number,
 		$work_order_number,
 		$quote_number,
@@ -552,6 +554,7 @@ class Sale extends CI_Model
 			'employee_id'		=> $employee_id,
 			'comment'			=> $comment,
 			'po_no'				=> $po_no,
+			'credit_period'		=> $credit_period,
 			'sale_status'		=> $sale_status,
 			'invoice_number'	=> $invoice_number,
 			'quote_number'		=> $quote_number,
@@ -1264,6 +1267,20 @@ class Sale extends CI_Model
 
 		if ($row != NULL) {
 			return $row->po_no;
+		}
+
+		return NULL;
+	}
+
+	public function get_credit_period($sale_id)
+	{
+		$this->db->from('sales');
+		$this->db->where('sale_id', $sale_id);
+
+		$row = $this->db->get()->row();
+
+		if ($row != NULL) {
+			return $row->credit_period;
 		}
 
 		return NULL;

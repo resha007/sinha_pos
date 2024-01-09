@@ -207,6 +207,11 @@ class Sales extends Secure_Controller
 		$this->sale_lib->set_comment($this->input->post('comment'));
 	}
 
+	public function set_credit_period()
+	{
+		$this->sale_lib->set_credit_period($this->input->post('credit_period'));
+	}
+
 	public function set_po_no()
 	{
 		$this->sale_lib->set_po_no($this->input->post('po_no'));
@@ -485,6 +490,7 @@ class Sales extends Secure_Controller
 		$data['show_stock_locations'] = $this->Stock_location->show_locations('sales');
 		$data['comments'] = $this->sale_lib->get_comment();
 		$data['po_no'] = $this->sale_lib->get_po_no();
+		$data['credit_period'] = $this->sale_lib->get_credit_period();
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$employee_info = $this->Employee->get_info($employee_id);
 		$data['employee'] = $employee_info->first_name . ' ' . mb_substr($employee_info->last_name, 0, 1);
@@ -594,7 +600,7 @@ class Sales extends Secure_Controller
 				$invoice_view = $this->config->item('invoice_type');
 
 				// Save the data to the sales table
-				$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $data['po_no'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
+				$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $data['po_no'], $data['credit_period'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
 				$data['sale_id'] = 'POS ' . $data['sale_id_num'];
 
 				// Resort and filter cart lines for printing
@@ -633,7 +639,7 @@ class Sales extends Secure_Controller
 				$data['sale_status'] = SUSPENDED;
 				$sale_type = SALE_TYPE_WORK_ORDER;
 
-				$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $data['po_no'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
+				$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $data['po_no'], $data['credit_period'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
 				$this->sale_lib->set_suspended_id($data['sale_id_num']);
 
 				$data['cart'] = $this->sale_lib->sort_and_filter_cart($data['cart']);
@@ -686,7 +692,7 @@ class Sales extends Secure_Controller
 				$sale_type = SALE_TYPE_POS;
 			}
 
-			$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $data['po_no'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
+			$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $data['po_no'], $data['credit_period'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
 
 			$data['sale_id'] = 'POS ' . $data['sale_id_num'];
 
@@ -882,6 +888,7 @@ class Sales extends Secure_Controller
 		$data['sale_id'] = 'POS ' . $sale_id;
 		$data['comments'] = $sale_info['comment'];
 		$data['po_no'] = $sale_info['po_no'];
+		$data['credit_period'] = $sale_info['credit_period'];
 		$data['invoice_number'] = $sale_info['invoice_number'];
 		$data['quote_number'] = $sale_info['quote_number'];
 		$data['sale_status'] = $sale_info['sale_status'];
@@ -1000,6 +1007,7 @@ class Sales extends Secure_Controller
 
 		$data['comment'] = $this->sale_lib->get_comment();
 		$data['po_no'] = $this->sale_lib->get_po_no();
+		$data['credit_period'] = $this->sale_lib->get_credit_period();
 		$data['email_receipt'] = $this->sale_lib->is_email_receipt();
 
 		if ($customer_info && $this->config->item('customer_reward_enable') == TRUE) {

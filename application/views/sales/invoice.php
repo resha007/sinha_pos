@@ -110,7 +110,7 @@ $(document).ready(function()
 			</tr>
 			<tr>
 				<td class="meta-head">Credit Period : </td>
-				<td class="meta-body">30 Days</td>
+				<td class="meta-body"><?php echo $credit_period; ?></td>
 			</tr>
 			<!-- <tr>
 				<td class="meta-head">Payment Method : </td>

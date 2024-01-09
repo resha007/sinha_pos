@@ -550,6 +550,10 @@ if (isset($success)) {
 								<?php echo form_textarea(array('name' => 'comment', 'id' => 'comment', 'class' => 'form-control input-sm', 'value' => $comment, 'rows' => '2')); ?>
 							</div>
 							<div class="col-xs-12">
+								<?php echo form_label('Credit Period', 'credit_period', array('class' => 'control-label', 'id' => 'credit_period_label', 'for' => 'credit_period')); ?>
+								<?php echo form_input(array('name' => 'credit_period', 'id' => 'credit_period', 'class' => 'form-control input-sm', 'value' => $credit_period)); ?>
+							</div>
+							<div class="col-xs-12">
 								<?php echo form_label('PO No.', 'po_no', array('class' => 'control-label', 'id' => 'po_no_label', 'for' => 'po_no')); ?>
 								<?php echo form_input(array('name' => 'po_no', 'id' => 'po_no', 'class' => 'form-control input-sm', 'value' => $po_no)); ?>
 							</div>
@@ -737,6 +741,12 @@ if (isset($success)) {
 		$('#comment').keyup(function() {
 			$.post("<?php echo site_url($controller_name . '/set_comment'); ?>", {
 				comment: $('#comment').val()
+			});
+		});
+
+		$('#credit_period').keyup(function() {
+			$.post("<?php echo site_url($controller_name . '/set_credit_period'); ?>", {
+				credit_period: $('#credit_period').val()
 			});
 		});
 
