@@ -174,12 +174,12 @@ $(document).ready(function()
 					<td style='text-align:center;' class="item-name"><?php echo ($item['is_serialized'] || $item['allow_alt_description']) && !empty($item['description']) ? $item['description'] : $item['name'] . ' ' . $item['attribute_values']; if($item['is_serialized']){ echo '<br> (S/N. ' . $item['serialnumber'].')';} ?></td>
 					<!-- <td style='text-align:center;' class="warrenty"><?php echo ($item['warranty']); ?></td> -->
 					<td style='text-align:center;' class="warrenty"><?php echo to_quantity_decimals($item['quantity']); ?></td>
-					<td style='text-align:center;' class="total-value"><?php echo to_currency($item['price']); ?></td>
+					<td style='text-align:center;' class="total-value">Rs. <?php echo (number_format((float)$item['price'], 2, '.', ',')); ?></td>
 					<td style='text-align:center;'><?php echo ($item['discount_type']==FIXED)?to_currency($item['discount']):to_decimals($item['discount']) . '%';?></td>
 					<?php if($discount > 0): ?>
 					<td style='text-align:center;'><?php echo to_currency($item['discounted_total'] / $item['quantity']); ?></td>
 					<?php endif; ?>
-					<td style=' text-align:right;' class="total-value"><?php echo to_currency($item['discounted_total']); ?></td>
+					<td style=' text-align:right;' class="total-value">Rs. <?php echo (number_format((float)$item['discounted_total'], 2, '.', ',')); ?></td>
 				</tr>
 				<?php
 				if($item['is_serialized'])
@@ -220,7 +220,7 @@ $(document).ready(function()
 		<tr class="item-row-total" >
 			<td colspan="<?php echo $invoice_columns-2; ?>" class="blank"> </td>
 			<td colspan="2" class="total-line" style="font-size: 16px"><b><?php echo $this->lang->line('sales_total'); ?></td>
-			<td class="total-value" id="total" style="font-size: 16px"><b><?php echo to_currency($total); ?></td>
+			<td class="total-value" id="total" style="font-size: 16px"><b>Rs. <?php echo (number_format((float)$total, 2, '.', ',')); ?></td>
 		</tr>
 
 		<?php
@@ -235,7 +235,7 @@ $(document).ready(function()
 			<tr class="item-row-total">
 				<td colspan="<?php echo $invoice_columns-2; ?>" class="blank"> </td>
 				<td colspan="2" class="total-line"><b>Payment Method :<?php echo $splitpayment[0]; ?></td>
-				<td class="total-value" id="paid"><b><?php echo to_currency( $payment['payment_amount'] * -1 ); ?></td>
+				<td class="total-value" id="paid"><b>Rs. <?php echo (number_format((float)( $payment['payment_amount'] * -1 ), 2, '.', ',')); ?></td>
 			</tr>
 		<?php
 		}
@@ -257,7 +257,7 @@ $(document).ready(function()
 		<tr class="item-row-total">
 			<td colspan="<?php echo $invoice_columns-3; ?>" class="blank"> </td>
 			<td colspan="3" class="total-line"><b><?php echo $this->lang->line($amount_change >= 0 ? ($only_sale_check ? 'sales_check_balance' : 'sales_change_due') : 'sales_amount_due') ; ?></td>
-			<td class="total-value" id="change"><b><?php echo to_currency($amount_change); ?></td>
+			<td class="total-value" id="change"><b>Rs. <?php echo (number_format((float)$amount_change, 2, '.', ',')); ?></td>
 		</tr>
 		<?php
 		}
@@ -266,7 +266,7 @@ $(document).ready(function()
 		<hr>
 		<div id="block2">
 			
-			<table id="metacominfo" style="float: right; width:30%;">
+			<table id="metacominfo" style="float: left; width:30%;">
 				<tr>
 					<td class="meta-body" colspan="2"> <b><span style="font-size: 18px">Payment Methods :</span></b> </td>
 				</tr>
@@ -295,6 +295,15 @@ $(document).ready(function()
 					<td class="meta-small"> : Piliyandala </td>
 				</tr>
 				
+			</table>
+<br><br>
+			<table id="metacominfo" style="float: right; width:40%; ">
+				<tr>
+					<td class="meta-body" style="text-align: center"> <b><span style="font-size: 18px">...........................</span></b> </td>
+					</tr>
+				<tr>
+					<td class="meta-body" style="text-align: center">CHECKED BY<br>Hansika Kavindi</b></td>
+					</tr>
 			</table>
 		</div>
 
@@ -527,6 +536,7 @@ $(document).ready(function()
 	</div> -->
 </div>
 
+<div class="pagebreak"> </div>
 <!-- order form copy-->
 
 <div id="page-wrap" class="order-form" style="font-size: 5px;">

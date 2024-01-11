@@ -670,7 +670,7 @@ class Sales extends Secure_Controller
 				$data['sale_status'] = SUSPENDED;
 				$sale_type = SALE_TYPE_QUOTE;
 
-				$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
+				$data['sale_id_num'] = $this->Sale->save($sale_id, $data['sale_status'], $data['cart'], $customer_id, $employee_id, $data['comments'], $data['po_no'], $data['credit_period'], $invoice_number, $work_order_number, $quote_number, $sale_type, $data['payments'], $data['dinner_table'], $tax_details);
 				$this->sale_lib->set_suspended_id($data['sale_id_num']);
 
 				$data['cart'] = $this->sale_lib->sort_and_filter_cart($data['cart']);
@@ -792,7 +792,7 @@ class Sales extends Secure_Controller
 			$data['first_name'] = $customer_info->first_name;
 			$data['last_name'] = $customer_info->last_name;
 			$data['customer_email'] = $customer_info->email;
-			$data['customer_address'] = $customer_info->address_1;
+			$data['customer_address'] = $customer_info->address_1.', '.$customer_info->address_2;
 			$data['phone_number'] = $customer_info->phone_number;
 			if (!empty($customer_info->zip) || !empty($customer_info->city)) {
 				$data['customer_location'] = $customer_info->zip . ' ' . $customer_info->city . ", " . $customer_info->state;
