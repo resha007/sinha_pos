@@ -44,7 +44,11 @@ if (isset($error_message))
 </div>
 
 <div id="page-wrap">
-	<div id="newheader"><?php echo $this->lang->line('sales_quote'); ?></div>
+	
+	<div id='barcode' style='float:right; text-align: center; font-size: 10px'>
+		<div id="newheader">Quotation</div>
+			
+	</div>
 	<div id="block1">
 		<div id="logo">
 			<?php
@@ -52,7 +56,7 @@ if (isset($error_message))
 			// if(true)
 			{
 			?>
-				<img id="image" src="<?php echo base_url('uploads/' . $this->Appconfig->get('company_logo')); ?>" alt="company_logo" />
+				<img id="image" style='width:400px' src="<?php echo base_url('uploads/' . $this->Appconfig->get('company_logo')); ?>" alt="company_logo" />
 				<!-- <img id="image" src="<?php echo base_url('images/flatlogo.png'); ?>" alt="company_logo" /> -->
 			<?php
 			}
@@ -70,33 +74,50 @@ if (isset($error_message))
 	</div>
 
 	<div id="block2">
-		<div id="company-title"><?php echo nl2br($company_info) ?></div>
-		<!-- <div style="float: right">
-			<?php echo $this->lang->line('sales_invoice_number');?> : <?php echo $invoice_number; ?>
-			<?php echo $this->lang->line('common_date'); ?> : <?php echo $transaction_date; ?>
-		</div> -->
+		<table id="metacominfo" style="float: left;">
+					<tr>
+						<td class="meta-head"> <span class="glyphicon glyphicon-earphone"></span> </td>
+						<td class="meta-body"><?php echo nl2br($company_tel) ?></td>
+					</tr>
+					<tr>
+						<td class="meta-head"> <span class="glyphicon glyphicon-globe"></span> </td>
+						<td class="meta-body"><?php echo nl2br($company_web) ?></td>
+					</tr>
+					<tr>
+						<td class="meta-head"> <span class="glyphicon glyphicon-envelope"></span> </td>
+						<td class="meta-body"><?php echo nl2br($company_email) ?></td>
+					</tr>
+					<tr>
+						<td class="meta-head"> <span class="glyphicon glyphicon-home"></span> </td>
+						<td class="meta-body"><?php echo nl2br($company_add) ?></td>
+					</tr>
+			</table>
 	</div><br>
 		<div id="block2">
-		<table id="metaq" style="border: -1; float: right">
-			<tr>
-					<td class="meta-head"><?php echo $this->lang->line('sales_quote_number');?></td>
-					<td><?php echo $quote_number; ?></td>
-				</tr>
+		<table id="meta" style="border: -1; float: right">
 				<tr>
-					<td class="meta-head"><?php echo $this->lang->line('common_date'); ?></td>
+					<td class="meta-head"><?php echo $this->lang->line('common_date'); ?> : </td>
 					<td><?php echo $transaction_date; ?></td>
 				</tr>
 				<tr>
+					<td class="meta-head"><?php echo $this->lang->line('sales_quote_number');?> : </td>
+					<td><?php echo $quote_number; ?></td>
+				</tr>
+				<tr>
+					<td class="meta-head">Credit Period : </td>
+					<td class="meta-body"><?php echo $credit_period; ?></td>
+				</tr>
+				<!-- <tr>
 					<td class="meta-head"><?php echo $this->lang->line('sales_customer_total'); ?></td>
 					<td><?php echo to_currency($total); ?></td>
-				</tr>
+				</tr> -->
 			</table>
 			<div id="customer-title">
 				<?php
 				if(isset($customer))
 				{
 				?>
-					<div id="customer"><b>To : </b><br><?php echo nl2br($customer_info) ?></div>
+					<div id="customer"><b><font face="calibri" size="4">Customer to : </font><br><font face="calibri" size="3"><?php echo nl2br($customer_info) ?></font></b></div>
 				<?php
 				}
 				?>
@@ -117,7 +138,7 @@ if (isset($error_message))
 				}
 			?>
 			<th><?php echo $this->lang->line('sales_item_name'); ?></th>
-			<th><?php echo $this->lang->line('warranty'); ?></th>
+			<!-- <th><?php echo $this->lang->line('warranty'); ?></th> -->
 			<th><?php echo $this->lang->line('sales_quantity'); ?></th>
 			<th><?php echo $this->lang->line('sales_price'); ?></th>
 			<th><?php echo $this->lang->line('sales_discount'); ?></th>
@@ -145,20 +166,20 @@ if (isset($error_message))
 						<td style='text-align:center;'><?php echo $item['hsn_code']; ?></td>
 					<?php endif; ?>
 					<td style='text-align:center;' class="item-name"><?php echo ($item['is_serialized'] || $item['allow_alt_description']) && !empty($item['description']) ? $item['description'] : $item['name'] . ' ' . $item['attribute_values']; ?></td>
-					<td style='text-align:center;' class="warrenty"><?php echo ($item['warranty']); ?></td>
+					<!-- <td style='text-align:center;' class="warrenty"><?php echo ($item['warranty']); ?></td> -->
 					<td style='text-align:center;' class="warrenty"><?php echo to_quantity_decimals($item['quantity']); ?></td>
-					<td style='text-align:center;' class="total-value"><?php echo to_currency($item['price']); ?></td>
+					<td style='text-align:center;' class="total-value">Rs. <?php echo (number_format((float)$item['price'], 2, '.', ',')); ?></td>
 					<td style='text-align:center;'><?php echo ($item['discount_type']==FIXED)?to_currency($item['discount']):to_decimals($item['discount']) . '%';?></td>
 					<?php if($discount > 0): ?>
 					<td style='text-align:center;'><?php echo to_currency($item['discounted_total'] / $item['quantity']); ?></td>
 					<?php endif; ?>
-					<td style=' text-align:right;' class="total-value"><?php echo to_currency($item['discounted_total']); ?></td>
+					<td style=' text-align:right;' class="total-value">Rs. <?php echo (number_format((float)$item['discounted_total'], 2, '.', ',')); ?></td>
 				</tr>
 				<?php
 				if($item['is_serialized'])
 				{
 				?>
-					<tr class="item-row">
+					<tr class="item-row1">
 						<td class="item-description" colspan="<?php echo $invoice_columns-1; ?>"></td>
 						<td style='text-align:center;'><?php echo $item['serialnumber']; ?></td>
 					</tr>
@@ -191,10 +212,10 @@ if (isset($error_message))
 		}
 		?>
 
-		<tr>
+		<tr class="item-row-total" >
 			<td colspan="<?php echo $invoice_columns-2; ?>" class="blank"> </td>
-			<td colspan="2" class="total-line"><?php echo $this->lang->line('sales_total'); ?></td>
-			<td class="total-value" id="total"><?php echo to_currency($total); ?></td>
+			<td colspan="0" class="total-line" style="font-size: 16px"><b><?php echo $this->lang->line('sales_total'); ?></td>
+			<td class="total-value" id="total" style="font-size: 16px"><b>Rs. <?php echo (number_format((float)$total, 2, '.', ',')); ?></td>
 		</tr>
 
 		<?php
@@ -206,7 +227,7 @@ if (isset($error_message))
 			$splitpayment = explode(':', $payment['payment_type']);
 			$show_giftcard_remainder |= $splitpayment[0] == $this->lang->line('sales_giftcard');
 		?>
-			<tr>
+			<tr class="item-row-total">
 				<td colspan="<?php echo $invoice_columns-2; ?>" class="blank"> </td>
 				<td colspan="2" class="total-line"><?php echo $splitpayment[0]; ?></td>
 				<td class="total-value" id="paid"><?php echo to_currency( $payment['payment_amount'] * -1 ); ?></td>
@@ -228,7 +249,7 @@ if (isset($error_message))
 		if(!empty($payments))
 		{
 		?>
-		<tr>
+		<tr class="item-row-total">
 			<td colspan="<?php echo $invoice_columns-2; ?>" class="blank"> </td>
 			<td colspan="2" class="total-line"><?php echo $this->lang->line($amount_change >= 0 ? ($only_sale_check ? 'sales_check_balance' : 'sales_change_due') : 'sales_amount_due') ; ?></td>
 			<td class="total-value" id="change"><?php echo to_currency($amount_change); ?></td>
@@ -238,12 +259,48 @@ if (isset($error_message))
 		?>
 
 	</table>
-	<div id="terms">
+	<br><br>
+	<hr>
+		<div id="block2">
+			
+			<table id="metacominfo" style="float: right; width:30%;">
+				<tr>
+					<td class="meta-body" colspan="2"> <b><span style="font-size: 18px">Payment Methods :</span></b> </td>
+				</tr>
+				<tr>
+					<td class="meta-body" colspan="2"> All the cheques should be written
+					in the favor of name <b>“Sinha Solutions"</b>
+					</td>
+				</tr>
+				<tr>
+					<td class="meta-body" colspan="2"> For Online Transfers : </td>
+				</tr>
+				<tr>
+					<td class="meta-small"> Account Name </td>
+					<td class="meta-small"> : Sinha Solutions </td>
+				</tr>
+				<tr>
+					<td class="meta-small"> Account Number </td>
+					<td class="meta-small"> : 0380 1003 6177 </td>
+				</tr>
+				<tr>
+					<td class="meta-small"> Bank </td>
+					<td class="meta-small"> : Hatton National Bank </td>
+				</tr>
+				<tr>
+					<td class="meta-small"> Branch </td>
+					<td class="meta-small"> : Piliyandala </td>
+				</tr>
+				
+			</table>
+		</div>
+
+	<!-- <div id="terms">
 		<div id="sale_return_policy1">
 			<h5>
 				<div><?php echo nl2br($this->config->item('payment_message')); ?></div>
 				<div style=''><?php echo empty($comments) ? '' : $this->lang->line('sales_comments') . ': ' . $comments; ?></div>
-				<!-- <div style='padding:4%;'><?php echo $this->config->item('invoice_default_comments'); ?></div> -->
+				<!-- <div style='padding:4%;'><?php echo $this->config->item('invoice_default_comments'); ?></div> 
 			</h5>
 			<div style='padding:2%;font-size:10px; width:100%'><?php echo nl2br($this->config->item('return_policy')); ?></div>
 			<div style=''>
@@ -256,7 +313,7 @@ if (isset($error_message))
 		</div>
 		<br><br>
 		
-	</div>
+	</div> -->
 </div>
 
 <script type="text/javascript">
@@ -289,5 +346,24 @@ if (isset($error_message))
 		}
 	});
 </script>
+
+<style type="text/css">
+   @media print {
+    .pagebreak { page-break-before: always; } /* page-break-after works, as well */
+	}
+
+	@media print {
+    #items th {
+        background-color: hwb(23 24% 16%) !important;
+        print-color-adjust: exact; 
+    }
+	}
+
+	@media print {
+		th {
+			color: white !important;
+		}
+	}
+</style>
 
 <?php $this->load->view("partial/footer"); ?>

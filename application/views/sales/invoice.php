@@ -200,9 +200,9 @@ $(document).ready(function()
 		</tr>
 
 		<!-- <tr>
-			<td colspan="<?php echo $invoice_columns-2; ?>" class="blank-bottom"> </td>
+			<td colspan="<p echo $invoice_columns-2; ?>" class="blank-bottom"> </td>
 			<td colspan="2" class="total-line"><?php echo $this->lang->line('sales_sub_total'); ?></td>
-			<td class="total-value" id="subtotal"><?php echo to_currency($subtotal); ?></td>
+			<td class="t?photal-value" id="subtotal"><?php echo to_currency($subtotal); ?></td>
 		</tr> -->
 
 		<?php
