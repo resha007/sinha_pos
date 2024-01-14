@@ -215,6 +215,11 @@ class Receivings extends Secure_Controller
 			$data['amount_tendered'] = $this->input->post('amount_tendered');
 			$data['amount_change'] = to_currency($data['amount_tendered'] - $data['total']);
 		}
+
+		$data['company_tel'] = $this->config->item('phone');
+		$data['company_web'] = $this->config->item('website');
+		$data['company_email'] = $this->config->item('email');
+		$data['company_add'] = $this->config->item('address');
 		
 		$employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
 		$employee_info = $this->Employee->get_info($employee_id);
