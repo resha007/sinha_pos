@@ -246,11 +246,11 @@ class Receivings extends Secure_Controller
 		}
 
 		//SAVE receiving to database
-		$data['receiving_id'] = 'RECV ' . $this->Receiving->save($data['cart'], $supplier_id, $employee_id, $data['comment'], $data['reference'], $data['payment_type'], $data['stock_location']);
+		$data['receiving_id'] = 'SSPO' . $this->Receiving->save($data['cart'], $supplier_id, $employee_id, $data['comment'], $data['reference'], $data['payment_type'], $data['stock_location']);
 
 		$data = $this->xss_clean($data);
 
-		if($data['receiving_id'] == 'RECV -1')
+		if($data['receiving_id'] == 'SSPO -1')
 		{
 			$data['error_message'] = $this->lang->line('receivings_transaction_failed');
 		}
@@ -298,7 +298,7 @@ class Receivings extends Secure_Controller
 		$data['show_stock_locations'] = $this->Stock_location->show_locations('receivings');
 		$data['payment_type'] = $receiving_info['payment_type'];
 		$data['reference'] = $this->receiving_lib->get_reference();
-		$data['receiving_id'] = 'RECV ' . $receiving_id;
+		$data['receiving_id'] = 'SSPO' . $receiving_id;
 		$data['barcode'] = $this->barcode_lib->generate_receipt_barcode($data['receiving_id']);
 		$employee_info = $this->Employee->get_info($receiving_info['employee_id']);
 		$data['employee'] = $employee_info->first_name . ' ' . $employee_info->last_name;
@@ -393,7 +393,7 @@ class Receivings extends Secure_Controller
 			'reference' => $this->input->post('reference') != '' ? $this->input->post('reference') : NULL
 		);
 
-		$this->Inventory->update('RECV '.$receiving_id, ['trans_date' => $receiving_time]);
+		$this->Inventory->update('RECV'.$receiving_id, ['trans_date' => $receiving_time]);
 		if($this->Receiving->update($receiving_data, $receiving_id))
 		{
 			echo json_encode(array('success' => TRUE, 'message' => $this->lang->line('receivings_successfully_updated'), 'id' => $receiving_id));

@@ -140,8 +140,9 @@
 			<tr class="item-row">
 				<td style='text-align:center;'><?php echo $item['name'] . ' ' . $item['attribute_values']; ?></div></td>
 				<td style='text-align:center;'>Rs. <?php echo (number_format((float)$item['price'], 2, '.', ',')); ?></td>
-				<td style='text-align:center;'><?php echo to_quantity_decimals($item['quantity']) . " " . ($show_stock_locations ? " [" . $item['stock_name'] . "]" : ""); 
-				?>&nbsp;&nbsp;&nbsp;x <?php echo $item['receiving_quantity'] != 0 ? to_quantity_decimals($item['receiving_quantity']) : 1; ?></td>
+				<td style='text-align:center;'><?php echo to_quantity_decimals($item['quantity']); ?></td>
+				<!-- <td style='text-align:center;'><?php echo to_quantity_decimals($item['quantity']) . " " . ($show_stock_locations ? " [" . $item['stock_name'] . "]" : ""); 
+				?>&nbsp;&nbsp;&nbsp;x <?php echo $item['receiving_quantity'] != 0 ? to_quantity_decimals($item['receiving_quantity']) : 1; ?></td> -->
 				<td ><div class="total-value">Rs. <?php echo (number_format((float)$item['total'], 2, '.', ',')); ?></div></td>
 			</tr>
 			<tr>
@@ -174,8 +175,8 @@
 		}
 		?>	
 		<tr class="item-row-total" >
-			<td colspan="3" style='text-align:right; font-size: 16px'><b><?php echo $this->lang->line('sales_total'); ?></b></td>
-			<td style='font-size: 16px'><div class="total-value"><b>Rs. <?php echo (number_format((float)$total, 2, '.', ',')); ?></b></div></td>
+			<td colspan="3" style='text-align:right; font-size: 16px;'><b><?php echo $this->lang->line('sales_total'); ?></b></td>
+			<td style='font-size: 16px;'><div class="total-value"><b>Rs. <?php echo (number_format((float)$total, 2, '.', ',')); ?></b></div></td>
 		</tr>
 		<?php 
 		if($mode!='requisition')
