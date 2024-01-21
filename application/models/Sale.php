@@ -73,7 +73,7 @@ class Sale extends CI_Model
 	/**
 	 * Get number of rows for the takings (sales/manage) view
 	 */
-	public function get_found_rows($search, $filters)
+	public function get_found_rows1($search, $filters)
 	{
 		return $this->search($search, $filters, 0, 0, 'sales.sale_time', 'desc', TRUE);
 	}
