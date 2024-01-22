@@ -1613,6 +1613,37 @@ class Reports extends Secure_Controller
 		$this->load->view('reports/tabular', $data);
 	}
 
+	public function inventory_low_dash()
+	{
+		$inputs = array();
+
+		$this->load->model('reports/Inventory_low');
+		$model = $this->Inventory_low;
+
+		$report_data = $model->getData($inputs);
+
+		$tabular_data = array();
+		foreach ($report_data as $row) {
+			$tabular_data[] = $this->xss_clean(array(
+				'item_name' => $row['name'],
+				'item_number' => $row['item_number'],
+				'quantity' => to_quantity_decimals($row['quantity']),
+				'reorder_level' => to_quantity_decimals($row['reorder_level']),
+				'location_name' => $row['location_name']
+			));
+		}
+
+		$data = array(
+			'title' => $this->lang->line('reports_inventory_low_report'),
+			'subtitle' => '',
+			'headers' => $this->xss_clean($model->getDataColumns()),
+			'data' => $tabular_data,
+			'summary_data' => $this->xss_clean($model->getSummaryData($inputs))
+		);
+		
+		echo json_encode(array('total' => sizeof($tabular_data), 'rows' => $tabular_data));
+	}
+
 	public function inventory_summary_input()
 	{
 		$this->load->model('reports/Inventory_summary');

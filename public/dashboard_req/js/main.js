@@ -45,16 +45,16 @@ $.ajax({
 //get low inventoy count
 $.ajax({
     type        : 'get',
-    url		    : "items/search",
+    url		    : "reports/inventory_low_dash",
     dataType    : 'json',
-    data        : { start_date: '2021-01-01', end_date: today, search: '', filters: ['low_inventory'] },
+    //data        : { start_date: '2021-01-01', end_date: today, search: '', filters: ['low_inventory'] },
     async       : true,
     success: function(data) {
         $("#lowinventory").html(data["total"]);
         
         var tableData = "";
         for (var i in data["rows"]) {
-            tableData += "<tr><td>"+data["rows"][i]["name"]+"</td>" + "<td>"+data["rows"][i]["quantity"]+"</td>" + "<td>"+data["rows"][i]["company_name"]+"</td></tr>";
+            tableData += "<tr><td>"+data["rows"][i]["item_name"]+"</td>" + "<td>"+data["rows"][i]["quantity"]+"</td>" + "<td>"+data["rows"][i]["location_name"]+"</td></tr>";
         }
 
 
