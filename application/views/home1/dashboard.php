@@ -294,7 +294,6 @@
                       <tr>
                         <th>Item Name</th>
                         <th>Quantity</th>
-                        <th>Business Name</th>
                       </tr>
                     </thead>
                     <tbody id="lowtable">

@@ -54,7 +54,7 @@ $.ajax({
         
         var tableData = "";
         for (var i in data["rows"]) {
-            tableData += "<tr><td>"+data["rows"][i]["item_name"]+"</td>" + "<td>"+data["rows"][i]["quantity"]+"</td>" + "<td>"+data["rows"][i]["location_name"]+"</td></tr>";
+            tableData += "<tr><td>"+data["rows"][i]["item_name"]+"</td>" + "<td>"+data["rows"][i]["quantity"]+"</td>" +"</tr>";
         }
 
 
