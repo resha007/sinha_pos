@@ -131,8 +131,6 @@ class Item extends CI_Model
 		if ($filters['stock_location_id'] > -1) {
 			$this->db->join('item_quantities AS item_quantities', 'item_quantities.item_id = items.item_id');
 			$this->db->where('location_id', $filters['stock_location_id']);
-			$this->db->where('items.category =', $filters['stock_location_id']);
-			// $this->db->where('item_quantities.quantity >', '0');
 		}
 
 		if (empty($this->config->item('date_or_time_format'))) {
@@ -493,7 +491,7 @@ class Item extends CI_Model
 		}
 	}
 
-	public function get_search_suggestions($location_id, $search, $filters = array('is_deleted' => FALSE, 'search_custom' => FALSE), $unique = FALSE, $limit = 25)
+	public function get_search_suggestions($search, $filters = array('is_deleted' => FALSE, 'search_custom' => FALSE), $unique = FALSE, $limit = 25)
 	{
 		$suggestions = array();
 		$non_kit = array(ITEM, ITEM_AMOUNT_ENTRY);
@@ -501,7 +499,6 @@ class Item extends CI_Model
 		$this->db->select($this->get_search_suggestion_format('item_id, name, pack_name'));
 		$this->db->from('items');
 		$this->db->where('deleted', $filters['is_deleted']);
-		$this->db->where('category', $location_id);
 		$this->db->where_in('item_type', $non_kit); // standard, exclude kit items since kits will be picked up later
 		$this->db->like('name', $search);
 		$this->db->order_by('name', 'asc');
