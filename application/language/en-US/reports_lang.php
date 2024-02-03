@@ -126,6 +126,7 @@ $lang["reports_total_inventory_value"] = "Total Inventory Value";
 $lang["reports_total_low_sell_quantity"] = "Total Low Sell Quantity";
 $lang["reports_total_quantity"] = "Total Quantity";
 $lang["reports_total_retail"] = "Total Inv. Retail Value";
+$lang["reports_total_wholesale_selling_price"] = "Total Wholesale Value";
 $lang["reports_trans_amount"] = "Transaction Amount";
 $lang["reports_trans_due"] = "Due";
 $lang["reports_trans_group"] = "Transaction Group";

@@ -1679,6 +1679,7 @@ class Reports extends Secure_Controller
 				'reorder_level' => to_quantity_decimals($row['reorder_level']),
 				'location_name' => $row['location_name'],
 				'cost_price' => to_currency($row['cost_price']),
+				'wholesale_selling_price' => to_currency($row['wholesale_selling_price']),
 				'unit_price' => to_currency($row['unit_price']),
 				'subtotal' => to_currency($row['sub_total_value'])
 			));
