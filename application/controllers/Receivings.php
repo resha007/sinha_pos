@@ -302,6 +302,11 @@ class Receivings extends Secure_Controller
 		$data['barcode'] = $this->barcode_lib->generate_receipt_barcode($data['receiving_id']);
 		$employee_info = $this->Employee->get_info($receiving_info['employee_id']);
 		$data['employee'] = $employee_info->first_name . ' ' . $employee_info->last_name;
+		
+		$data['company_tel'] = $this->config->item('phone');
+		$data['company_web'] = $this->config->item('website');
+		$data['company_email'] = $this->config->item('email');
+		$data['company_add'] = $this->config->item('address');
 
 		$supplier_id = $this->receiving_lib->get_supplier();
 		if($supplier_id != -1)
